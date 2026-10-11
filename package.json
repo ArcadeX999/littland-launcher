@@ -1,0 +1,51 @@
+{
+  "name": "littland-launcher",
+  "version": "1.0.0",
+  "description": "Launcher de Minecraft para el servidor Littland",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --publish never",
+    "manifest": "node tools/generate-manifest.js",
+    "publicar": "node tools/publish-modpack.js",
+    "release": "node tools/release.js"
+  },
+  "author": "Littland",
+  "type": "commonjs",
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "electron-updater": "^6.8.9",
+    "minecraft-launcher-core": "^3.18.2",
+    "msmc": "^5.0.5"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "productName": "Littland Launcher",
+  "private": true,
+  "build": {
+    "appId": "net.littland.launcher",
+    "productName": "Littland Launcher",
+    "files": [
+      "src/**/*",
+      "launcher.config.json",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ArcadeX999",
+        "repo": "littland-launcher"
+      }
+    ],
+    "artifactName": "Littland-Launcher-Setup-${version}.${ext}"
+  }
+}

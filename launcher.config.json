@@ -1,0 +1,24 @@
+{
+  "serverName": "Littland",
+  "serverAddress": "littland2.holy.gg",
+  "manifestUrl": "https://arcadex999.github.io/littland-modpack/manifest.json",
+  "dataFolder": ".littland",
+  "branding": {
+    "title": "LITTLAND",
+    "titleAccent": "2",
+    "subtitle": "Minecraft Server",
+    "badge": "🔥 Temporada 2 · ¡Ya disponible! 🔥",
+    "tagline": "— El servidor donde la aventura nunca termina —",
+    "description": "El servidor de Minecraft del que todo el mundo habla. Aventuras épicas, eventos semanales, premios increíbles y una comunidad genial.",
+    "features": [
+      { "text": "Java 1.21.8 — 1.21.11", "color": "green" },
+      { "text": "Mods de Modrinth", "color": "cyan" },
+      { "text": "24/7 Online", "color": "gold" },
+      { "text": "No premium", "color": "green" }
+    ]
+  },
+  "links": {
+    "discord": "",
+    "web": ""
+  }
+}

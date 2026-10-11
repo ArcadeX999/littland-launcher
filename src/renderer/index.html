@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://mc-heads.net https://cdn.modrinth.com data:; style-src 'self'" />
+  <title>Littland Launcher</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div id="particles"></div></div>
+
+  <header class="titlebar">
+    <div class="brand">
+      <img class="brand-logo" src="logo.svg" alt="" />
+      <div class="brand-text">
+        <div class="brand-name"><span id="brand-title">LITTLAND</span> <span id="brand-accent" class="gold"></span></div>
+        <div id="brand-sub" class="brand-sub">MINECRAFT SERVER</div>
+      </div>
+    </div>
+    <div class="pills">
+      <button id="update-pill" class="pill pill-gold" hidden></button>
+      <span id="pill-players" class="pill pill-green"><i class="dot"></i> <b id="pill-players-n">...</b> jugando</span>
+      <span id="pill-discord" class="pill pill-purple" hidden><i class="dot"></i> <b id="pill-discord-n"></b> en Discord</span>
+    </div>
+    <div class="window-buttons">
+      <button id="btn-min" title="Minimizar">&#x2013;</button>
+      <button id="btn-close" class="danger" title="Cerrar">&#x2715;</button>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-content">
+      <div id="season-badge" class="season" hidden></div>
+      <h1 class="title"><span id="hero-title">LITTLAND</span> <span id="hero-accent" class="gold"></span></h1>
+      <p id="hero-tagline" class="tagline"></p>
+      <p id="hero-desc" class="desc"></p>
+      <div id="features" class="features"></div>
+
+      <div class="ip-row">
+        <div class="ip-box">
+          <span class="ip-label">IP DEL SERVIDOR &#9656;</span>
+          <span id="server-ip" class="ip-value"></span>
+          <button id="btn-copy-ip" class="btn3d btn-gold small">COPIAR</button>
+        </div>
+        <button id="btn-discord" class="btn3d btn-purple" hidden>UNIRME AL DISCORD</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="stat-online">-</b><span>Jugando ahora</span></div>
+        <div class="stat"><b id="stat-max">-</b><span>Capacidad</span></div>
+        <div class="stat"><b id="stat-ping">-</b><span>Ping</span></div>
+        <div class="stat"><b id="stat-status">-</b><span id="stat-version">Estado</span></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bar">
+    <button id="account-chip" class="account-chip" title="Cuentas">
+      <img id="account-head" alt="" />
+      <div>
+        <div id="account-name" class="account-name">Sin cuenta</div>
+        <div id="account-type" class="account-type">Haz clic para agregar</div>
+      </div>
+    </button>
+
+    <div class="progress-area">
+      <div id="progress-text" class="progress-text">Listo para jugar</div>
+      <div class="progress"><div id="progress-fill" class="progress-fill"></div></div>
+    </div>
+
+    <button id="btn-mods" class="btn3d btn-dark" title="Mods">MODS</button>
+    <button id="btn-console" class="icon-btn" title="Consola">&gt;_</button>
+    <button id="btn-settings" class="icon-btn" title="Ajustes">&#9881;</button>
+    <label class="version-picker" title="Versión de Minecraft">
+      <span>Versión</span>
+      <select id="version" disabled><option>...</option></select>
+    </label>
+    <button id="btn-play" class="btn3d btn-green play">&#9935; JUGAR</button>
+  </footer>
+
+  <!-- Accounts -->
+  <dialog id="dlg-accounts">
+    <h2>Cuentas</h2>
+    <ul id="account-list" class="account-list"></ul>
+    <button id="btn-add-ms" class="primary wide">Iniciar sesión con Microsoft</button>
+    <div class="divider"><span>o juega sin premium</span></div>
+    <form id="form-offline" class="row">
+      <input id="offline-name" placeholder="Nombre de usuario" maxlength="16" autocomplete="off" />
+      <button type="submit">Agregar</button>
+    </form>
+    <p id="account-error" class="error"></p>
+    <div class="dialog-actions"><button class="close-dialog">Cerrar</button></div>
+  </dialog>
+
+  <!-- Settings -->
+  <dialog id="dlg-settings">
+    <h2>Ajustes</h2>
+    <label class="field">
+      <span>Memoria RAM: <strong id="ram-value">4</strong> GB <small id="ram-total"></small></span>
+      <input id="ram" type="range" min="1" max="16" step="1" />
+    </label>
+    <label class="check">
+      <input id="hide-on-launch" type="checkbox" />
+      <span>Ocultar el launcher mientras juego</span>
+    </label>
+    <button id="btn-folder" class="wide">Abrir carpeta del juego</button>
+    <p id="app-version" class="app-version"></p>
+    <div class="dialog-actions"><button class="close-dialog">Cerrar</button></div>
+  </dialog>
+
+  <!-- Mods -->
+  <dialog id="dlg-mods" class="mods-dialog">
+    <header class="mods-header">
+      <div>
+        <h2>Mods</h2>
+        <small id="mods-version" class="muted"></small>
+      </div>
+      <nav class="tabs">
+        <button data-tab="browse" class="active">Explorar</button>
+        <button data-tab="installed">Instalados <span id="installed-count" class="count"></span></button>
+      </nav>
+      <button class="close-dialog icon-close" title="Cerrar">&#x2715;</button>
+    </header>
+    <p id="mods-notice" class="notice" hidden></p>
+
+    <section id="tab-browse" class="tab">
+      <div class="mods-toolbar">
+        <input id="mods-query" type="search" placeholder="Buscar mods en Modrinth..." autocomplete="off" />
+        <select id="mods-sort">
+          <option value="relevance">Relevancia</option>
+          <option value="downloads">Descargas</option>
+          <option value="follows">Seguidores</option>
+          <option value="newest">Más nuevos</option>
+          <option value="updated">Actualizados</option>
+        </select>
+      </div>
+      <div id="mods-results" class="mods-list"></div>
+      <button id="mods-more" class="wide" hidden>Cargar más</button>
+    </section>
+
+    <section id="tab-installed" class="tab" hidden>
+      <div class="mods-toolbar">
+        <span id="updates-info" class="muted"></span>
+        <button id="btn-check-updates">Buscar actualizaciones</button>
+      </div>
+      <h3>Tus mods</h3>
+      <div id="mods-user" class="mods-list"></div>
+      <h3>Del servidor <small class="muted">(no se pueden quitar)</small></h3>
+      <div id="mods-server" class="mods-list"></div>
+    </section>
+
+    <footer id="mods-status" class="mods-status"></footer>
+  </dialog>
+
+  <!-- Console -->
+  <dialog id="dlg-console" class="console-dialog">
+    <h2>Consola</h2>
+    <pre id="console"></pre>
+    <div class="dialog-actions"><button class="close-dialog">Cerrar</button></div>
+  </dialog>
+
+  <script src="renderer.js"></script>
+  <script src="mods.js"></script>
+</body>
+</html>

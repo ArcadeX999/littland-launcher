@@ -1,0 +1,5 @@
+node_modules/
+dist/
+# The modpack is published from its own repo (ArcadeX999/littland-modpack).
+modpack/
+dev-app-update.yml
