@@ -7,3 +7,10 @@ dev-app-update.yml
 voice/plugin/build/
 voice/plugin/.gradle/
 voice/dev/bot/node_modules/
+# Android app build output
+voice/android/.gradle/
+voice/android/build/
+voice/android/app/build/
+voice/android/local.properties
+voice/dev/screenshots/
+voice/dev/*.log

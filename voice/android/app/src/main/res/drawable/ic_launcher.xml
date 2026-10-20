@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Grass block, same pixel art as the PC launcher logo (16x16). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp"
+    android:viewportWidth="16" android:viewportHeight="16">
+    <path android:fillColor="#79553A" android:pathData="M0,0h16v16h-16z" />
+    <path android:fillColor="#5FA83A" android:pathData="M0,0h16v5h-16z" />
+    <path android:fillColor="#4B8A2C" android:pathData="M0,5h16v1h-16z M0,6h2v1h-2z M4,6h1v2h-1z M7,6h2v1h-2z M11,6h1v2h-1z M14,6h2v1h-2z" />
+    <path android:fillColor="#7CC84A" android:pathData="M1,1h2v1h-2z M6,0h3v1h-3z M11,2h2v1h-2z M3,3h2v1h-2z M13,0h2v1h-2z M8,3h2v1h-2z" />
+    <path android:fillColor="#966C4A" android:pathData="M2,9h2v1h-2z M9,8h2v1h-2z M13,11h2v1h-2z M5,12h2v1h-2z M10,14h2v1h-2z M1,14h1v1h-1z" />
+    <path android:fillColor="#5E3F2A" android:pathData="M6,9h1v1h-1z M12,9h1v1h-1z M3,11h1v1h-1z M8,12h1v1h-1z M14,14h1v1h-1z M4,15h2v1h-2z" />
+</vector>

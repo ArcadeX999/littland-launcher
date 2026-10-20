@@ -1,4 +1,4 @@
-# Builds the LittlandVoice plugin with the dev JDK in %LOCALAPPDATA%\LittlandDev.
+﻿# Builds the LittlandVoice plugin with the dev JDK in %LOCALAPPDATA%\LittlandDev.
 # Output: voice\plugin\build\libs\LittlandVoice-<version>.jar
 $ErrorActionPreference = 'Stop'
 $dev = Join-Path $env:LOCALAPPDATA 'LittlandDev'

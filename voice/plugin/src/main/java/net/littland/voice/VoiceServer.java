@@ -315,8 +315,12 @@ final class VoiceServer {
 
     // ---------------------------------------------------------------- lookup
 
-    /** Exact name, or the same name with a Floodgate prefix (e.g. ".Steve") for Bedrock players. */
-    private PlayerSnapshot findOnline(String name) {
+    /**
+     * Exact name, or the same name with a Floodgate prefix (e.g. ".Steve") for
+     * Bedrock players. Floodgate also turns spaces in Xbox gamertags into "_".
+     */
+    private PlayerSnapshot findOnline(String rawName) {
+        String name = rawName.trim().replace(' ', '_');
         PlayerSnapshot prefixed = null;
         for (PlayerSnapshot p : players.values()) {
             if (p.name().equalsIgnoreCase(name)) return p;

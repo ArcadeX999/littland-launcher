@@ -13,9 +13,15 @@
  *     [--blocked xray-mod,freecam] [--no-user-mods | --allow-user-mods]
  *
  *     [--voice-port 24454] [--voice-host fr01.holy.gg] [--no-voice]
+ *     [--bedrock-address littland2.holy.gg:19132] [--discord https://discord.gg/xxxx]
  *
  * --voice-port enables the LittlandVoice chat (the plugin's UDP port).
- * --voice-host is only needed if voice runs on another machine than the game.
+ * --voice-host: the voice server's host. The PC launcher can find it via SRV,
+ *   but the Android app needs it written here.
+ * --bedrock-address: where the Android app sends Bedrock players.
+ * --discord: invite link shown in the Android app.
+ *
+ * News for the Android app live in <folder>/news.json (not part of the manifest).
  *
  * Flags you leave out keep the value from the existing manifest.json.
  *
@@ -117,11 +123,22 @@ else if (flag('voice-port') || flag('voice-host')) {
   if (flag('voice-host')) voice.host = flag('voice-host');
 }
 
+let links = { ...previous.links };
+if (flag('discord') !== undefined) links.discord = flag('discord');
+
+let bedrock = previous.bedrock || null;
+if (flag('bedrock-address')) {
+  const [host, port] = flag('bedrock-address').split(':');
+  bedrock = { host, port: Number(port) || 19132 };
+}
+
 fs.writeFileSync(
   path.join(root, 'manifest.json'),
-  JSON.stringify({ default: def, userMods, ...(voice && { voice }), versions }, null, 2)
+  JSON.stringify({ default: def, userMods, ...(voice && { voice }), ...(bedrock && { bedrock }), links, versions }, null, 2)
 );
 console.log(`manifest.json generado (por defecto ${def}):`);
 for (const v of names) console.log(`  ${v}: ${versions[v].files.length} archivos`);
+console.log(bedrock ? `Bedrock (app Android): ${bedrock.host}:${bedrock.port}` : 'Bedrock (app Android): sin configurar');
+console.log(links.discord ? `Discord: ${links.discord}` : 'Discord: sin enlace');
 console.log(voice ? `Chat de voz: puerto ${voice.port}${voice.host ? ` en ${voice.host}` : ''}` : 'Chat de voz: desactivado');
 console.log(userMods.enabled ? `Mods de jugadores: permitidos${userMods.blocked.length ? ` (bloqueados: ${userMods.blocked.join(', ')})` : ''}` : 'Mods de jugadores: desactivados');

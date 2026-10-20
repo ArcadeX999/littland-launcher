@@ -1,4 +1,4 @@
-# Runs the launcher from source against the local test server
+﻿# Runs the launcher from source against the local test server
 # (voice\dev\run-server.ps1) with voice enabled.
 $ErrorActionPreference = 'Stop'
 $root = Resolve-Path (Join-Path $PSScriptRoot '..\..')

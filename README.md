@@ -89,6 +89,18 @@ Chat de voz de proximidad propio: plugin del servidor ([voice/plugin](voice/plug
 
 **Pruebas locales** (`voice/dev`): `setup.ps1` instala el JDK 21, Gradle y un server Purpur de pruebas en `%LOCALAPPDATA%\LittlandDev`. Después, `run-server.ps1` arranca ese server con el plugin, `node voice/dev/bot/test.js` lanza 19 pruebas automáticas con bots, `node voice/dev/bot/parrot.js` mete un bot "Loro" que repite lo que dices, y `run-launcher.ps1` abre el launcher apuntando al server local.
 
+## App de Android (Bedrock)
+
+[voice/android](voice/android): app "Littland" para los jugadores de Bedrock en el móvil. El botón JUGAR abre Minecraft conectado al server y mantiene el chat de voz en segundo plano. También tiene noticias y un botón de Discord. Usa el mismo plugin y el mismo protocolo que el launcher de PC.
+
+Todo lo lee del repositorio del modpack, así que se cambia sin publicar otra versión de la app:
+- **Dirección de Bedrock:** `npm run publicar -- --bedrock-address host:puerto`
+- **Servidor de voz:** `npm run publicar -- --voice-port N --voice-host host`. La app necesita el host explícito, porque no resuelve SRV.
+- **Discord:** `npm run publicar -- --discord https://discord.gg/...`
+- **Noticias:** edita [modpack/news.json](modpack/news.json) (`title`, `date` en formato `AAAA-MM-DD`, `body` y `url` opcional) y luego ejecuta `npm run publicar`.
+
+**Desarrollo** (`voice/dev`): `setup-android.ps1` instala Android Studio y el SDK, y `setup-emulator.ps1` crea el emulador "Littland". Para compilar, usa `voice\android\build.ps1`. Para probar en el emulador contra el server local, arranca `run-server.ps1`, `node voice/dev/serve-modpack.js`, `node voice/dev/bot/standin.js MovilTest` (un bot que hace de jugador de Bedrock) y, opcionalmente, `node voice/dev/bot/parrot.js`, y después ejecuta `run-android-test.ps1`. Pulsando largo en el logo de la app se cambia la URL del manifest para usar un server de pruebas.
+
 ## 3. Probar
 
 ```bash

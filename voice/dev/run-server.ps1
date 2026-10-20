@@ -1,4 +1,4 @@
-# Starts a local Purpur 1.21.8 test server with the freshly built LittlandVoice
+﻿# Starts a local Purpur 1.21.8 test server with the freshly built LittlandVoice
 # plugin. Run voice\dev\setup.ps1 first and voice\plugin\build.ps1 to rebuild.
 #   -AcceptEula  accept the Minecraft EULA (https://aka.ms/MinecraftEULA)
 param([switch]$AcceptEula)
@@ -37,7 +37,7 @@ function Get-OfflineUuid($name) {
     $h = -join ($md5 | ForEach-Object { $_.ToString('x2') })
     "$($h.Substring(0,8))-$($h.Substring(8,4))-$($h.Substring(12,4))-$($h.Substring(16,4))-$($h.Substring(20))"
 }
-$ops = 'BotA', 'BotB' | ForEach-Object {
+$ops = 'BotA', 'BotB', 'Loro', 'MovilTest' | ForEach-Object {
     [ordered]@{ uuid = (Get-OfflineUuid $_); name = $_; level = 4; bypassesPlayerLimit = $false }
 }
 ConvertTo-Json @($ops) | Set-Content (Join-Path $server 'ops.json') -Encoding ascii

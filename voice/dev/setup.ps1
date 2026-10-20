@@ -1,4 +1,4 @@
-# Installs the LittlandVoice dev tools into %LOCALAPPDATA%\LittlandDev
+﻿# Installs the LittlandVoice dev tools into %LOCALAPPDATA%\LittlandDev
 # (outside OneDrive): Temurin JDK 21, Gradle and a Purpur 1.21.8 test server.
 # Every download is checked against its published checksum.
 $ErrorActionPreference = 'Stop'

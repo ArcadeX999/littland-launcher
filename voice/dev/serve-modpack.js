@@ -8,10 +8,16 @@ const root = path.join(__dirname, '..', '..', 'modpack');
 
 http
   .createServer((req, res) => {
-    const rel = decodeURIComponent(req.url.split('?')[0]);
+    const url = new URL(req.url, 'http://localhost');
+    const rel = decodeURIComponent(url.pathname);
     if (rel === '/manifest.json') {
       const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-      manifest.voice = { enabled: true, host: '127.0.0.1', port: 24454 };
+      // The Android emulator reaches this PC as 10.0.2.2: ?host=10.0.2.2
+      const host = url.searchParams.get('host') || '127.0.0.1';
+      manifest.voice = { enabled: true, host, port: 24454 };
+      manifest.bedrock = { host, port: 19132 };
+      // ?discord=https://... to preview the app's Discord button.
+      if (url.searchParams.get('discord')) manifest.links = { ...manifest.links, discord: url.searchParams.get('discord') };
       res.writeHead(200, { 'content-type': 'application/json' });
       return res.end(JSON.stringify(manifest));
     }
