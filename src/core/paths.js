@@ -8,6 +8,7 @@ const config = JSON.parse(
 
 // Lets you test a local modpack before uploading it (see README).
 if (process.env.LITTLAND_MANIFEST_URL) config.manifestUrl = process.env.LITTLAND_MANIFEST_URL;
+if (process.env.LITTLAND_SERVER_ADDRESS) config.serverAddress = process.env.LITTLAND_SERVER_ADDRESS;
 
 const root = path.join(app.getPath('appData'), config.dataFolder || '.littland');
 

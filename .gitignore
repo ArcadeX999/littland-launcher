@@ -3,3 +3,7 @@ dist/
 # The modpack is published from its own repo (ArcadeX999/littland-modpack).
 modpack/
 dev-app-update.yml
+# Voice plugin build output
+voice/plugin/build/
+voice/plugin/.gradle/
+voice/dev/bot/node_modules/

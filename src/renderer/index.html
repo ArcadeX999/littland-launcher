@@ -19,6 +19,7 @@
     </div>
     <div class="pills">
       <button id="update-pill" class="pill pill-gold" hidden></button>
+      <button id="voice-pill" class="pill pill-voice" hidden title="Clic para silenciar o activar tu micrófono"></button>
       <span id="pill-players" class="pill pill-green"><i class="dot"></i> <b id="pill-players-n">...</b> jugando</span>
       <span id="pill-discord" class="pill pill-purple" hidden><i class="dot"></i> <b id="pill-discord-n"></b> en Discord</span>
     </div>
@@ -103,6 +104,26 @@
       <input id="hide-on-launch" type="checkbox" />
       <span>Ocultar el launcher mientras juego</span>
     </label>
+    <section class="voice-settings">
+      <h3>🎤 Chat de voz</h3>
+      <label class="check">
+        <input id="voice-enabled" type="checkbox" />
+        <span>Conectar el chat de voz al jugar</span>
+      </label>
+      <label class="field"><span>Micrófono</span><select id="voice-input"></select></label>
+      <label class="field"><span>Salida de audio</span><select id="voice-output"></select></label>
+      <label class="field">
+        <span>Sensibilidad: se transmite por encima de <strong id="voice-threshold-value"></strong> dB</span>
+        <div class="meter"><div id="voice-meter" class="meter-fill"></div><div id="voice-mark" class="meter-mark"></div></div>
+        <input id="voice-threshold" type="range" min="-80" max="-20" step="1" />
+      </label>
+      <div class="row2">
+        <label class="field"><span>Volumen del micrófono</span><input id="voice-mic" type="range" min="0" max="2" step="0.05" /></label>
+        <label class="field"><span>Volumen de las voces</span><input id="voice-volume" type="range" min="0" max="2" step="0.05" /></label>
+      </div>
+      <button id="voice-test" class="wide">Probar micrófono (te oirás a ti mismo)</button>
+      <p class="hint">En el juego: <b>/voz silenciar</b>, <b>/voz ensordecer</b> y <b>/voz eco</b> para probar el sonido 3D.</p>
+    </section>
     <button id="btn-folder" class="wide">Abrir carpeta del juego</button>
     <p id="app-version" class="app-version"></p>
     <div class="dialog-actions"><button class="close-dialog">Cerrar</button></div>
@@ -161,5 +182,7 @@
 
   <script src="renderer.js"></script>
   <script src="mods.js"></script>
+  <script src="voice.js"></script>
+  <script src="voice-ui.js"></script>
 </body>
 </html>

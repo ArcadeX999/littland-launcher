@@ -438,3 +438,25 @@ dialog h2 { margin: 0 0 16px; font-family: var(--mono); letter-spacing: .12em; t
 .pill-gold.ready { cursor: pointer; background: linear-gradient(180deg, #ffd65a 0%, #f0b323 100%); color: #2b1d00; font-weight: 700; border-color: #050805; box-shadow: 0 3px 0 var(--gold-dark); }
 .pill-gold.ready:hover { filter: brightness(1.08); }
 .app-version { color: var(--muted); font-size: 12px; text-align: center; margin: 14px 0 0; font-family: var(--mono); }
+
+/* Voice */
+#dlg-settings { width: 520px; max-height: 88vh; overflow-y: auto; }
+.voice-settings { border-top: 1px solid var(--border); margin: 6px 0 18px; padding-top: 14px; }
+.voice-settings h3 { margin: 0 0 12px; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-size: 14px; color: var(--accent); }
+.voice-settings select {
+  font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 10px; outline: none; width: 100%;
+}
+.voice-settings .field { margin-bottom: 12px; gap: 6px; }
+.voice-settings .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.voice-settings .hint { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+.voice-settings .hint b { color: var(--text); font-family: var(--mono); font-weight: 700; }
+.meter { position: relative; height: 10px; background: #050805; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.meter-fill { height: 100%; width: 0; background: var(--muted); transition: width .06s; }
+.meter-fill.talking { background: var(--accent); }
+.meter-mark { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--gold); }
+#voice-test.active { border-color: var(--accent-dark); color: var(--accent); }
+.pill-voice { font: inherit; font-size: 13px; cursor: pointer; border: 1px solid var(--border-strong); color: var(--muted); }
+.pill-voice.connected { border-color: var(--accent-dark); color: #b9f0a3; }
+.pill-voice.muted { border-color: #6b2b2b; color: #f3a7a7; }
+.pill-voice.talking { box-shadow: 0 0 10px rgba(111, 214, 74, .5); }

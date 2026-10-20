@@ -74,6 +74,21 @@ Estas restricciones solo se aplican dentro del launcher. Un jugador que use otro
 
 Al cambiar de versión, el launcher cambia los mods automáticamente. Si el hosting se cae, usa la última copia del manifest que descargó.
 
+## Chat de voz (LittlandVoice)
+
+Chat de voz de proximidad propio: plugin del servidor ([voice/plugin](voice/plugin)) + voz integrada en el launcher. Protocolo en [voice/PROTOCOL.md](voice/PROTOCOL.md).
+
+**En el servidor:**
+1. Compila el plugin (`voice\plugin\build.ps1`) y copia `voice/plugin/build/libs/LittlandVoice-*.jar` a `plugins/`.
+2. Abre un **puerto UDP** en el hosting y ponlo en `plugins/LittlandVoice/config.yml` (`port`). Ahí también se cambia la distancia de voz (`distance`, 48 bloques por defecto).
+3. Activa la voz en el launcher publicando el manifest con ese puerto: `npm run publicar -- --voice-port <puerto>`. Usa `--voice-host <host>` solo si la voz va en otra máquina distinta del juego.
+
+**En el juego:** `/voz silenciar`, `/voz ensordecer`, `/voz eco` (para oírte a ti mismo y probar el sonido 3D) y `/voz estado`. Los admins también tienen `/voz recargar`.
+
+**En el launcher:** Ajustes → Chat de voz, donde se eligen el micrófono, la salida y la sensibilidad, y hay una prueba de micrófono.
+
+**Pruebas locales** (`voice/dev`): `setup.ps1` instala el JDK 21, Gradle y un server Purpur de pruebas en `%LOCALAPPDATA%\LittlandDev`. Después, `run-server.ps1` arranca ese server con el plugin, `node voice/dev/bot/test.js` lanza 19 pruebas automáticas con bots, `node voice/dev/bot/parrot.js` mete un bot "Loro" que repite lo que dices, y `run-launcher.ps1` abre el launcher apuntando al server local.
+
 ## 3. Probar
 
 ```bash

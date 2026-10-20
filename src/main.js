@@ -1,6 +1,7 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain, shell, clipboard } = require('electron');
 const { setupUpdater } = require('./updater');
+const { startVoice, stopVoice, sendAudio, setVoiceState } = require('./voice/manager');
 
 if (!app.requestSingleInstanceLock()) app.quit();
 
@@ -19,6 +20,8 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       sandbox: true,
+      // Voice keeps capturing/playing while the window is hidden during play.
+      backgroundThrottling: false,
     },
   });
   win.loadFile(path.join(__dirname, 'renderer', 'index.html'));
@@ -76,10 +79,21 @@ app.whenReady().then(() => {
   ipcMain.handle('game:launch', async () => {
     const result = await launchGame((event, payload) => {
       send(event, payload);
-      if (event === 'state' && !payload.running && win && !win.isVisible()) win.show();
+      if (event !== 'state') return;
+      if (payload.running && payload.voice && getSettings().voice.enabled) {
+        startVoice(payload.voice, send).catch((err) => send('voice:status', { state: 'disconnected', reason: err.message }));
+      }
+      if (!payload.running) {
+        stopVoice();
+        if (win && !win.isVisible()) win.show();
+      }
     });
     if (result.hideOnLaunch) win.hide();
   });
+
+  // Voice: the renderer captures/plays audio, this process owns the UDP socket.
+  ipcMain.on('voice:audio', (_e, sequence, data) => sendAudio(sequence, data));
+  ipcMain.on('voice:setState', (_e, state) => setVoiceState(state));
 
   ipcMain.on('window:minimize', () => win.minimize());
   ipcMain.on('window:close', () => win.close());

@@ -1,0 +1,13 @@
+# LittlandVoice - chat de voz de proximidad.
+
+# Puerto UDP de la voz. Debe estar abierto en el hosting (además del de Minecraft).
+port: 24454
+
+# Dirección en la que escucha. Déjalo en 0.0.0.0 salvo que tu hosting diga otra cosa.
+bind-address: 0.0.0.0
+
+# Distancia en bloques a la que se oye a otros jugadores.
+distance: 48
+
+# Avisa a quien entra sin voz conectada de cómo activarla.
+join-hint: true

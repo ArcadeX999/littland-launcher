@@ -1,0 +1,15 @@
+name: LittlandVoice
+version: ${version}
+main: net.littland.voice.LittlandVoice
+api-version: '1.21'
+description: Chat de voz de proximidad para Littland (launcher de PC y app de Android).
+author: Littland
+commands:
+  voz:
+    description: Controla tu chat de voz.
+    usage: /voz <silenciar|ensordecer|eco|estado>
+permissions:
+  littland.voice.use:
+    default: true
+  littland.voice.admin:
+    default: op

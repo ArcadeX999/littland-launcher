@@ -96,7 +96,11 @@ async function launchGame(emit) {
     });
 
     if (!proc) throw new Error('Minecraft no pudo iniciarse, revisa la consola');
-    emit('state', { running: true });
+    // The manifest's "voice" section exists only when the server runs LittlandVoice.
+    const voice = manifest.voice && manifest.voice.enabled !== false
+      ? { voiceConfig: manifest.voice, serverAddress: config.serverAddress, name: authorization.name }
+      : null;
+    emit('state', { running: true, voice });
     status({ text: 'Jugando', progress: 1 });
     return { hideOnLaunch: settings.hideOnLaunch };
   } catch (err) {

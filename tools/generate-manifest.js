@@ -12,6 +12,11 @@
  *   node tools/generate-manifest.js <folder> --default 1.21.8 [--managed mods,resourcepacks]
  *     [--blocked xray-mod,freecam] [--no-user-mods | --allow-user-mods]
  *
+ *     [--voice-port 24454] [--voice-host fr01.holy.gg] [--no-voice]
+ *
+ * --voice-port enables the LittlandVoice chat (the plugin's UDP port).
+ * --voice-host is only needed if voice runs on another machine than the game.
+ *
  * Flags you leave out keep the value from the existing manifest.json.
  *
  * --blocked: Modrinth slugs or project ids players may not install themselves.
@@ -105,7 +110,18 @@ const userMods = {
       : previous.userMods?.blocked || [],
 };
 
-fs.writeFileSync(path.join(root, 'manifest.json'), JSON.stringify({ default: def, userMods, versions }, null, 2));
+let voice = previous.voice || null;
+if (args.includes('--no-voice')) voice = null;
+else if (flag('voice-port') || flag('voice-host')) {
+  voice = { ...voice, enabled: true, port: Number(flag('voice-port') || voice?.port || 24454) };
+  if (flag('voice-host')) voice.host = flag('voice-host');
+}
+
+fs.writeFileSync(
+  path.join(root, 'manifest.json'),
+  JSON.stringify({ default: def, userMods, ...(voice && { voice }), versions }, null, 2)
+);
 console.log(`manifest.json generado (por defecto ${def}):`);
 for (const v of names) console.log(`  ${v}: ${versions[v].files.length} archivos`);
+console.log(voice ? `Chat de voz: puerto ${voice.port}${voice.host ? ` en ${voice.host}` : ''}` : 'Chat de voz: desactivado');
 console.log(userMods.enabled ? `Mods de jugadores: permitidos${userMods.blocked.length ? ` (bloqueados: ${userMods.blocked.join(', ')})` : ''}` : 'Mods de jugadores: desactivados');

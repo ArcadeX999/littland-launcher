@@ -39,6 +39,10 @@ contextBridge.exposeInMainWorld('launcher', {
     state: () => call('update:state'),
     install: () => call('update:install'),
   },
+  voice: {
+    sendAudio: (sequence, data) => ipcRenderer.send('voice:audio', sequence, data),
+    setState: (state) => ipcRenderer.send('voice:setState', state),
+  },
   copyText: (text) => ipcRenderer.send('clipboard:write', text),
   launch: () => call('game:launch'),
   on: (event, cb) => ipcRenderer.on(event, (_e, payload) => cb(payload)),

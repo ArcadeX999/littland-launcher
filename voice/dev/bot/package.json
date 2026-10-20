@@ -1,0 +1,9 @@
+{
+  "name": "littland-voice-bot",
+  "private": true,
+  "description": "Bots de prueba para LittlandVoice",
+  "type": "commonjs",
+  "dependencies": {
+    "mineflayer": "^4.39.0"
+  }
+}

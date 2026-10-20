@@ -118,4 +118,4 @@ async function discordOnline(inviteUrl) {
   }
 }
 
-module.exports = { pingServer, discordOnline };
+module.exports = { pingServer, discordOnline, resolveAddress };
