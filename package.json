@@ -1,6 +1,6 @@
 {
   "name": "littland-launcher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Launcher de Minecraft para el servidor Littland",
   "main": "src/main.js",
   "scripts": {
